@@ -7,7 +7,7 @@ const GridColumns = (data: BasicWeatherAlert[]) => {
   return [
     columnHelper.accessor((row) => row.event, {
       id: "Event",
-      cell: (info) => <i>{info.getValue()}</i>,
+      cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
       enableSorting: true,
       enableColumnFilter: true,
@@ -21,14 +21,14 @@ const GridColumns = (data: BasicWeatherAlert[]) => {
     }),
     columnHelper.accessor((row) => row.severity, {
       id: "Severity",
-      cell: (info) => <i>{info.getValue()}</i>,
+      cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
       enableSorting: true,
       enableColumnFilter: true,
     }),
     columnHelper.accessor((row) => row.urgency, {
       id: "Urgency",
-      cell: (info) => <i>{info.getValue()}</i>,
+      cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
       enableSorting: true,
       enableColumnFilter: true,
