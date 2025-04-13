@@ -15,31 +15,56 @@ const WeatherGrid = ({ data }: { data: WeatherAlert[] }) => {
   const columnHelper = createColumnHelper<WeatherAlert>();
 
   const columns = [
-    columnHelper.accessor((row) => row.category, {
-      id: "Category",
+    columnHelper.accessor((row) => row.event, {
+      id: "Event",
       cell: (info) => <i>{info.getValue()}</i>,
-      header: () => <span>Category</span>,
-      footer: (info) => info.column.id,
-      enableSorting: true,
-      enableColumnFilter: true,
-    }),
-    columnHelper.accessor((row) => row.status, {
-      id: "Status",
-      cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
       enableSorting: true,
     }),
     columnHelper.accessor((row) => row.areaDescription, {
       id: "Area",
+      cell: (info) => info.getValue(),
+      footer: (info) => info.column.id,
+      enableSorting: true,
+    }),
+    columnHelper.accessor((row) => row.severity, {
+      id: "Severity",
       cell: (info) => <i>{info.getValue()}</i>,
+      footer: (info) => info.column.id,
+      enableSorting: true,
+    }),
+    columnHelper.accessor((row) => row.urgency, {
+      id: "Urgency",
+      cell: (info) => <i>{info.getValue()}</i>,
+      footer: (info) => info.column.id,
+      enableSorting: true,
+    }),
+    columnHelper.accessor((row) => row.effective, {
+      id: "Effective",
+      cell: (info) => {
+        const dateString = info.getValue();
+        const date = new Date(dateString);
+        return date.toLocaleString();
+      },
       footer: (info) => info.column.id,
       enableSorting: true,
     }),
     columnHelper.accessor((row) => row.certainty, {
       id: "Certainty",
-      cell: (info) => <i>{info.getValue()}</i>,
+      cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
       enableSorting: true,
+    }),
+    columnHelper.accessor((row) => row.response, {
+      id: "Response",
+      cell: (info) => info.getValue(),
+      footer: (info) => info.column.id,
+      enableSorting: true,
+    }),
+    columnHelper.accessor((row) => row.instruction, {
+      id: "Instruction",
+      cell: (info) => info.getValue(),
+      footer: (info) => info.column.id,
     }),
   ];
 
