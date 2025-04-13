@@ -1,6 +1,7 @@
 import WeatherGrid from "@/components/WeatherGrid";
+import { BasicWeatherAlert } from "@/types/BasicWeatherAlert";
 import { NwsApiAlertResponse } from "@/types/NwsApiAlertResponse";
-import { WeatherAlert } from "@/types/WeatherAlert";
+import { mapWeatherAlerts } from "@/utils/mapWeatherAlerts";
 import axios from "axios";
 import { GetServerSidePropsResult } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -16,7 +17,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function Home({ data }: { data: WeatherAlert[] }): JSX.Element {
+export default function Home({
+  data,
+}: {
+  data: BasicWeatherAlert[];
+}): JSX.Element {
   return (
     <main
       className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
@@ -31,7 +36,7 @@ export default function Home({ data }: { data: WeatherAlert[] }): JSX.Element {
 
 export async function getServerSideProps(): Promise<
   GetServerSidePropsResult<{
-    data: WeatherAlert[];
+    data: BasicWeatherAlert[];
   }>
 > {
   try {
@@ -39,31 +44,9 @@ export async function getServerSideProps(): Promise<
       "https://api.weather.gov/alerts/active?status=actual"
     );
 
-    const alerts: WeatherAlert[] = response.data.features.map((feature) => {
-      return {
-        id: feature.id,
-        type: feature.type,
-        areaDescription: feature.properties?.areaDesc,
-        category: feature.properties?.category,
-        certainty: feature.properties?.certainty,
-        description: feature.properties?.description,
-        effective: feature.properties?.effective,
-        expires: feature.properties?.expires,
-        event: feature.properties?.event,
-        headline: feature.properties?.headline,
-        instruction: feature.properties?.instruction,
-        messageType: feature.properties?.messageType,
-        response: feature.properties?.response,
-        senderName: feature.properties?.senderName,
-        severity: feature.properties?.severity,
-        status: feature.properties?.status,
-        urgency: feature.properties?.urgency,
-      };
-    });
-
     return {
       props: {
-        data: alerts,
+        data: mapWeatherAlerts(response.data),
       },
     };
   } catch (error) {

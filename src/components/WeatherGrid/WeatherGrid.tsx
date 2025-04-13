@@ -8,11 +8,13 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { WeatherAlert } from "@/types/WeatherAlert";
+import { BasicWeatherAlert } from "@/types/BasicWeatherAlert";
 
-const WeatherGrid = ({ data }: { data: WeatherAlert[] }) => {
+const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const columnHelper = createColumnHelper<WeatherAlert>();
+  const columnHelper = createColumnHelper<BasicWeatherAlert>();
+
+  console.log(data);
 
   const columns = [
     columnHelper.accessor((row) => row.event, {
