@@ -36,7 +36,7 @@ export async function getServerSideProps(): Promise<
 > {
   try {
     const response = await axios.get<NwsApiAlertResponse>(
-      "https://api.weather.gov/alerts/active"
+      "https://api.weather.gov/alerts/active?status=actual"
     );
 
     const alerts: WeatherAlert[] = response.data.features.map((feature) => {
