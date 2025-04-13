@@ -5,7 +5,7 @@ export interface NwsApiAlertResponse {
   features: NwsApiAlertFeature[];
 }
 
-interface NwsApiAlertFeature {
+export interface NwsApiAlertFeature {
   id: string;
   type: string;
   geometry: unknown;

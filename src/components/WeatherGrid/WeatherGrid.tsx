@@ -11,10 +11,13 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { BasicWeatherAlert } from "@/types/BasicWeatherAlert";
+import { useRouter } from "next/router";
 
 const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
+  const router = useRouter();
 
   const columnHelper = createColumnHelper<BasicWeatherAlert>();
 
@@ -95,6 +98,11 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
     onColumnFiltersChange: setColumnFilters,
   });
 
+  const handleRowClick = (rowData: BasicWeatherAlert) => {
+    const encodedUrl = encodeURIComponent(rowData.id);
+    router.push(`/alert/${encodedUrl}`);
+  };
+
   return (
     <div>
       <table className="table-fixed">
@@ -143,7 +151,7 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} onClick={() => handleRowClick(row.original)}>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className="align-top  p-2 text-wrap">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
