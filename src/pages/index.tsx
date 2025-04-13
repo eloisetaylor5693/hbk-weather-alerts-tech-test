@@ -1,3 +1,4 @@
+import WeatherGrid from "@/components/WeatherGrid";
 import { NwsApiAlertResponse } from "@/types/NwsApiAlertResponse";
 import { WeatherAlert } from "@/types/WeatherAlert";
 import axios from "axios";
@@ -23,6 +24,7 @@ export default function Home({ data }: { data: WeatherAlert[] }): JSX.Element {
       <h1 className="text-4xl sm:text-6xl font-bold text-center sm:text-left">
         Weather alerts
       </h1>
+      <WeatherGrid data={data} />
     </main>
   );
 }
