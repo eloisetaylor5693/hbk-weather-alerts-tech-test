@@ -26,7 +26,6 @@ interface NwsApiAlertProperties {
   response: string;
   senderName: string;
   severity: string;
-  statement?: string;
   status: string;
   urgency: string;
 }

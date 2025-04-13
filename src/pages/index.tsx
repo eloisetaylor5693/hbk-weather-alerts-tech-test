@@ -56,7 +56,6 @@ export async function getServerSideProps(): Promise<
         response: feature.properties?.response,
         senderName: feature.properties?.senderName,
         severity: feature.properties?.severity,
-        statement: feature?.properties?.statement ?? "No statement",
         status: feature.properties?.status,
         urgency: feature.properties?.urgency,
       };
