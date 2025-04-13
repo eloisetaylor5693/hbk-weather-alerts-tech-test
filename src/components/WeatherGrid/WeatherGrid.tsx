@@ -1,9 +1,11 @@
 import { useState } from "react";
 
 import {
+  ColumnFiltersState,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
@@ -12,9 +14,9 @@ import { BasicWeatherAlert } from "@/types/BasicWeatherAlert";
 
 const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const columnHelper = createColumnHelper<BasicWeatherAlert>();
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  console.log(data);
+  const columnHelper = createColumnHelper<BasicWeatherAlert>();
 
   const columns = [
     columnHelper.accessor((row) => row.event, {
@@ -22,24 +24,28 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
       cell: (info) => <i>{info.getValue()}</i>,
       footer: (info) => info.column.id,
       enableSorting: true,
+      enableColumnFilter: true,
     }),
     columnHelper.accessor((row) => row.areaDescription, {
       id: "Area",
       cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
       enableSorting: true,
+      enableColumnFilter: true,
     }),
     columnHelper.accessor((row) => row.severity, {
       id: "Severity",
       cell: (info) => <i>{info.getValue()}</i>,
       footer: (info) => info.column.id,
       enableSorting: true,
+      enableColumnFilter: true,
     }),
     columnHelper.accessor((row) => row.urgency, {
       id: "Urgency",
       cell: (info) => <i>{info.getValue()}</i>,
       footer: (info) => info.column.id,
       enableSorting: true,
+      enableColumnFilter: true,
     }),
     columnHelper.accessor((row) => row.effective, {
       id: "Effective",
@@ -50,23 +56,27 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
       },
       footer: (info) => info.column.id,
       enableSorting: true,
+      enableColumnFilter: false,
     }),
     columnHelper.accessor((row) => row.certainty, {
       id: "Certainty",
       cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
       enableSorting: true,
+      enableColumnFilter: true,
     }),
     columnHelper.accessor((row) => row.response, {
       id: "Response",
       cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
       enableSorting: true,
+      enableColumnFilter: true,
     }),
     columnHelper.accessor((row) => row.instruction, {
       id: "Instruction",
       cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
+      enableColumnFilter: false,
     }),
   ];
 
@@ -75,10 +85,13 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
     data,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
     onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
   });
 
   return (
@@ -91,7 +104,7 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
                 <th
                   key={header.id}
                   className={`w-1/${columns.length} p-2 text-left`}
-                  onClick={header.column.getToggleSortingHandler()}
+                    onClick={header.column.getToggleSortingHandler()}
                 >
                   <span>
                     {flexRender(
@@ -103,6 +116,22 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
                       desc: " 🔽",
                     }[header.column.getIsSorted() as string] ?? null}
                   </span>
+
+                  {header.column.getCanFilter() && (
+                    <div
+                      key={header.id}
+                      className="filter inline-block mr-2 mb-2"
+                    >
+                      <input
+                        type="text"
+                        className="p-1 border rounded"
+                        placeholder={`Filter ${header.id}...`}
+                        onChange={(e) =>
+                          header.column.setFilterValue(e.target.value)
+                        }
+                      />
+                    </div>
+                  )}
                 </th>
               ))}
             </tr>
