@@ -76,6 +76,7 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
       id: "Instruction",
       cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
+      enableSorting: false,
       enableColumnFilter: false,
     }),
   ];
@@ -104,7 +105,7 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
                 <th
                   key={header.id}
                   className={`w-1/${columns.length} p-2 text-left`}
-                    onClick={header.column.getToggleSortingHandler()}
+                  onClick={header.column.getToggleSortingHandler()}
                 >
                   <span>
                     {flexRender(
