@@ -88,7 +88,7 @@ const WeatherGrid = ({ data }: { data: WeatherAlert[] }) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className={`w-1/${columns.length} p-2 text-left `}
+                  className={`w-1/${columns.length} p-2 text-left`}
                   onClick={header.column.getToggleSortingHandler()}
                 >
                   <span>
@@ -110,7 +110,7 @@ const WeatherGrid = ({ data }: { data: WeatherAlert[] }) => {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="p-2 text-left">
+                <td key={cell.id} className="align-top  p-2 text-wrap">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
