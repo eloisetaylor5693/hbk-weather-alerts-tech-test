@@ -104,10 +104,16 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className={`w-1/${columns.length} p-2 text-left`}
-                  onClick={header.column.getToggleSortingHandler()}
+                  className={`w-1/${columns.length} p-2 text-left align-text-top`}
                 >
-                  <span>
+                  <span
+                    onClick={header.column.getToggleSortingHandler()}
+                    className={
+                      header.column.getCanSort()
+                        ? "cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        : ""
+                    }
+                  >
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
@@ -119,10 +125,7 @@ const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
                   </span>
 
                   {header.column.getCanFilter() && (
-                    <div
-                      key={header.id}
-                      className="filter inline-block mr-2 mb-2"
-                    >
+                    <div key={header.id} className="filter mr-2 mb-2">
                       <input
                         type="text"
                         className="p-1 border rounded"
