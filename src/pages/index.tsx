@@ -6,11 +6,11 @@ import axios from "axios";
 import { GetServerSidePropsResult } from "next";
 import { JSX } from "react";
 
-export default function Home({
-  data,
-}: {
+interface HomepageProps {
   data: BasicWeatherAlert[];
-}): JSX.Element {
+}
+
+export default function Home({ data }: HomepageProps): JSX.Element {
   return (
     <main
       className={`grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 `}

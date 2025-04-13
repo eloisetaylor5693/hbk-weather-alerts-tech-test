@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import {
   ColumnFiltersState,
-  createColumnHelper,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -14,7 +13,11 @@ import { BasicWeatherAlert } from "@/types/BasicWeatherAlert";
 import { useRouter } from "next/router";
 import GridColumns from "./GridColumns";
 
-const WeatherGrid = ({ data }: { data: BasicWeatherAlert[] }) => {
+interface WeatherGridProps {
+  data: BasicWeatherAlert[];
+}
+
+const WeatherGrid = ({ data }: WeatherGridProps) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
