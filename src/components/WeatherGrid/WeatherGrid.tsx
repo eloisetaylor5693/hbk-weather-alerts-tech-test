@@ -44,7 +44,7 @@ const WeatherGrid = ({ data }: { data: WeatherAlert[] }) => {
       cell: (info) => {
         const dateString = info.getValue();
         const date = new Date(dateString);
-        return date.toLocaleString();
+        return <span suppressHydrationWarning>{date.toLocaleString()}</span>;
       },
       footer: (info) => info.column.id,
       enableSorting: true,
