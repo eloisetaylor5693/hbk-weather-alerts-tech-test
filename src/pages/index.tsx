@@ -4,18 +4,7 @@ import { NwsApiAlertResponse } from "@/types/NwsApiAlertResponse";
 import { mapWeatherAlerts } from "@/utils/mapWeatherAlerts";
 import axios from "axios";
 import { GetServerSidePropsResult } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { JSX } from "react";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export default function Home({
   data,
@@ -24,7 +13,7 @@ export default function Home({
 }): JSX.Element {
   return (
     <main
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
+      className={`grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 `}
     >
       <h1 className="text-4xl sm:text-6xl font-bold text-center sm:text-left">
         Weather alerts
